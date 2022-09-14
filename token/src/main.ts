@@ -1,8 +1,24 @@
 import { NestFactory } from '@nestjs/core';
+import { Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { ConfigService } from './config/config.service';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const configService = new ConfigService();
+  const logger = new Logger();
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.RMQ,
+      options: {
+        urls: [`${configService.get('rb_url')}`],
+        queue: `${configService.get('token_queue')}`,
+        queueOptions: { durable: false },
+      },
+    },
+  );
+  await app.listen();
+  logger.log('🚀 Token service started');
 }
 bootstrap();
