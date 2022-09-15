@@ -22,8 +22,8 @@ export class RmqModule {
             useFactory: (configService: ConfigService) => ({
               transport: Transport.RMQ,
               options: {
-                urls: [configService.get<string>('rb_url')],
-                queue: configService.get<string>(`token_queue`),
+                urls: [configService.get<string>('RABBITMQ_URL')],
+                queue: configService.get<string>(`RABBITMQ_${name}_QUEUE`),
               },
             }),
             inject: [ConfigService],

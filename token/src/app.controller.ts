@@ -1,22 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { JwtPayload } from 'jsonwebtoken';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { Ctx, MessagePattern, Payload, RmqContext } from '@nestjs/microservices';
 import { IDecodeResponse } from './core/interfaces/IDecodeResponse';
 import { ITokenResponse } from './core/interfaces/ITokenResponse';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern('token_create')
-  public async createToken(@Payload() data: any): Promise<ITokenResponse> {
-    return this.appService.createToken(data.id);
+  @MessagePattern('test')
+  public async createToken(@Payload() data: any, @Ctx() context: RmqContext): Promise<any> {
+    return this.appService.createToken(data.test);
   }
 
-  @MessagePattern('token_decode')
-  public async decodeToken(
-    @Payload() data: string,
-  ): Promise<string | JwtPayload | IDecodeResponse> {
-    return this.appService.decodeToken(data);
-  }
 }

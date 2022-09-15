@@ -6,16 +6,10 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AppService {
   constructor(private configService: ConfigService) {}
-  public createToken(userId: number): ITokenResponse {
-    const accessExp = this.configService.get('accessExp');
-    const refreshExp = this.configService.get('refreshExp');
-    const secretKey = this.configService.get('secretKey');
-    const accessToken = sign({ userId }, secretKey, { expiresIn: accessExp });
-    const refreshToken = sign({ userId }, secretKey, { expiresIn: refreshExp });
-    return {
-      accessToken,
-      refreshToken,
-    };
+
+  public createToken(userId: number): any {
+    console.log(userId, "test..")
+    return false
   }
 
   public async decodeToken(

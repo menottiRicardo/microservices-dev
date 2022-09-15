@@ -11,7 +11,7 @@ import { RmqModule } from './rmq/rmq.module';
       isGlobal: true,
     }),
     RmqModule.register({
-      name: 'TOKEN_SERVICE',
+      name: 'TOKEN',
     }),
   ],
   controllers: [AppController],

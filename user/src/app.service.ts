@@ -12,11 +12,12 @@ import { hashSync, compareSync } from 'bcrypt';
 @Injectable()
 export class AppService {
   constructor(
-    @Inject('TOKEN_SERVICE') private readonly tokenClient: ClientProxy,
+    @Inject('TOKEN') private readonly tokenClient: ClientProxy,
   ) {
   }
+
   async getOrders() {
-    this.tokenClient.emit('test', {
+    const test = this.tokenClient.emit('test', {
       test: 'success',
     });
     return true
