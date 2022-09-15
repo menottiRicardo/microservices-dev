@@ -8,7 +8,6 @@ import { RmqModule } from './rmq/rmq.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '../.env',
     }),
     RmqModule,
   ],
