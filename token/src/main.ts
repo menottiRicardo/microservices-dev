@@ -1,24 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { ConfigService } from './config/config.service';
+import { RmqService } from './rmq/rmq.service';
 
 async function bootstrap() {
-  const configService = new ConfigService();
   const logger = new Logger();
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
-    {
-      transport: Transport.RMQ,
-      options: {
-        urls: [`${configService.get('rb_url')}`],
-        queue: `${configService.get('token_queue')}`,
-        queueOptions: { durable: false },
-      },
-    },
-  );
-  await app.listen();
+  const app = await NestFactory.create(AppModule);
+  const rmqService = app.get<RmqService>(RmqService);
+  app.connectMicroservice(rmqService.getOptions('BILLING'));
+  await app.startAllMicroservices();
   logger.log('🚀 Token service started');
 }
 bootstrap();
