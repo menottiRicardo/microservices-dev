@@ -59,6 +59,21 @@ services:
       - "15671:15672"
     networks:
       - backend
+  order:
+    build:
+      context: ./order
+      dockerfile: Dockerfile
+    env_file:
+      - ./order/.env
+    container_name: order
+    volumes:
+      - ./order:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - rabbitmq
+      - kong
+    networks:
+      - backend
   kong:
     build:
       context: ./kong
