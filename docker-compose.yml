@@ -14,6 +14,21 @@ services:
       - '9001:9001'
     depends_on:
       - rabbitmq
+  auth:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    env_file:
+      - ./auth/.env
+    volumes:
+      - ./auth:/usr/src/app
+      - /usr/src/app/node_modules
+    hostname: auth
+    container_name: auth
+    ports:
+      - '9002:9002'
+    depends_on:
+      - rabbitmq
   token:
     build:
       context: ./token

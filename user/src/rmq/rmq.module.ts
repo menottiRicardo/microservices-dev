@@ -23,7 +23,7 @@ export class RmqModule {
               transport: Transport.RMQ,
               options: {
                 urls: [configService.get<string>('RABBITMQ_URL')],
-                queue: configService.get<string>(`RABBITMQ_TOKEN_QUEUE`),
+                queue: configService.get<string>(`RABBITMQ_${name}_QUEUE`),
               },
             }),
             inject: [ConfigService],

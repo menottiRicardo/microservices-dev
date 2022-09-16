@@ -6,20 +6,18 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { firstValueFrom } from 'rxjs';
-import { hashSync, compareSync } from 'bcrypt';
 
 @Injectable()
 export class AppService {
   constructor(
-    @Inject('TOKEN') private readonly tokenClient: ClientProxy,
+    @Inject('AUTH') private readonly tokenClient: ClientProxy,
   ) {
   }
 
   async getOrders() {
-    const test = this.tokenClient.emit('test', {
-      test: 'success',
-    });
+    // const test = this.tokenClient.emit('test', {
+    //   test: 'success',
+    // });
     return true
   }
 }
