@@ -25,6 +25,6 @@ async function bootstrap() {
   await app.startAllMicroservices();
 
   await app.listen(configService.get('PORT'));
-  console.log(`🚀 User service running on port ${configService.get('PORT')}`);
+  console.log(`🚀 Order service running on port ${configService.get('PORT')}`, configService.get("RABBITMQ_AUTH_QUEUE"));
 }
 bootstrap();

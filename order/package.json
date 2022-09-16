@@ -28,6 +28,8 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.1.0",
     "@prisma/client": "^4.2.1",
+    "amqp-connection-manager": "^4.1.6",
+    "amqplib": "^0.10.3",
     "cookie-parser": "^1.4.6",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

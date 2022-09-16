@@ -72,6 +72,8 @@ services:
     depends_on:
       - rabbitmq
       - kong
+    ports:
+      - "3001:3001"
     networks:
       - backend
   kong:

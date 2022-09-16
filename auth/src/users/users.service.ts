@@ -13,7 +13,8 @@ export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async createUser(request: CreateUserRequest) {
-    await this.validateCreateUserRequest(request);
+    const validate = await this.validateCreateUserRequest(request);
+    console.log('validae', validate)
     const user = await this.usersRepository.create({
       ...request,
       password: await bcrypt.hash(request.password, 10),
@@ -30,6 +31,7 @@ export class UsersService {
     } catch (err) {}
 
     if (user) {
+      console.log('error')
       throw new UnprocessableEntityException('Email already exists.');
     }
   }

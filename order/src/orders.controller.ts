@@ -16,19 +16,17 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { OrdersService } from './orders.service';
 
 @ApiTags('Orders')
-@Controller('orders')
+@Controller('order')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
-  
+
   @Post()
   @ApiOperation({ summary: 'Create Order' })
   @UseGuards(JwtAuthGuard)
-  create(
-    @Body() createOrder: Prisma.OrderCreateInput,
-    @Req() req:any
-  ) {
-    console.log(req.user)
-    return this.ordersService.create(createOrder, req.tenantId);
+  create(@Body() createOrder: Prisma.OrderCreateInput, @Req() req: any) {
+    console.log(req.user, process.env.RABBITMQ_AUTH_QUEUE);
+
+    return this.ordersService.create(createOrder, req.user.tenantId);
   }
 
   @Get('tenantId=:tenantId')

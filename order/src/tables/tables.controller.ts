@@ -20,7 +20,7 @@ export class TablesController {
   @Post()
   @UseGuards(JwtAuthGuard)
   create(@Body() createTableDto: Prisma.TableCreateInput, @Req() req: any) {
-    return this.tablesService.create(createTableDto, req);
+    return this.tablesService.create(createTableDto, req.user.tenantId);
   }
 
   @Get('byTenant')

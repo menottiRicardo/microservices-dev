@@ -23,7 +23,7 @@ export class ProductsController {
     @Body() createProductDto: Prisma.ProductCreateInput,
     @Req() req: any,
   ) {
-    return this.productsService.create(createProductDto, req);
+    return this.productsService.create(createProductDto, req.user.tenantId);
   }
 
   @Post('/ordered/:id')
