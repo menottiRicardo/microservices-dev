@@ -16,7 +16,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { OrdersService } from './orders.service';
 
 @ApiTags('Orders')
-@Controller('order')
+@Controller('')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 

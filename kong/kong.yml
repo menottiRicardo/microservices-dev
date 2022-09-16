@@ -14,3 +14,9 @@ services:
       - name: auth
         paths:
           - /auth
+  - name: order
+    url: http://order:3001
+    routes:
+      - name: order
+        paths:
+          - /order
