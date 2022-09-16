@@ -11,9 +11,12 @@ services:
     hostname: user
     container_name: user
     ports:
-      - '9001:9001'
+      - "9001:9001"
     depends_on:
       - rabbitmq
+      - kong
+    networks:
+      - backend
   auth:
     build:
       context: ./auth
@@ -26,9 +29,12 @@ services:
     hostname: auth
     container_name: auth
     ports:
-      - '9002:9002'
+      - "9002:9002"
     depends_on:
       - rabbitmq
+      - kong
+    networks:
+      - backend
   token:
     build:
       context: ./token
@@ -41,6 +47,9 @@ services:
       - /usr/src/app/node_modules
     depends_on:
       - rabbitmq
+      - kong
+    networks:
+      - backend
   rabbitmq:
     image: "rabbitmq:3-management"
     container_name: rabbitmq
@@ -48,3 +57,28 @@ services:
     ports:
       - "5672:5672"
       - "15671:15672"
+    networks:
+      - backend
+  kong:
+    build:
+      context: ./kong
+      dockerfile: Dockerfile
+    container_name: kong
+    restart: on-failure
+    networks:
+      - backend
+    command: "kong start"
+    volumes:
+      - ./kong/kong.yml:/usr/local/kong/declarative/kong.yml
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: /usr/local/kong/declarative/kong.yml
+      KONG_PROXY_LISTEN: 0.0.0.0:8080
+      KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
+      KONG_ADMIN_LISTEN: 0.0.0.0:9000
+    ports:
+      - "8080:8080"
+      - "9000:9000"
+networks:
+  backend:
+    driver: bridge
