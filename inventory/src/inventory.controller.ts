@@ -1,31 +1,12 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Logger,
-  Param,
-  Patch,
-  Post,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Prisma } from '@prisma/client';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { Controller, Get } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 
-@ApiTags('Orders')
-@Controller('')
+@Controller()
 export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}
 
- 
-
-  @Get('')
+  @Get()
   findAll() {
-    return true
+    return this.inventoryService.create();
   }
-
-
 }

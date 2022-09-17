@@ -11,6 +11,7 @@ import { CategoriesModule } from './categories/categories.module';
 @Module({
   imports: [
     ProductsModule,
+    CategoriesModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -18,7 +19,6 @@ import { CategoriesModule } from './categories/categories.module';
       name: 'AUTH',
     }),
     AuthModule,
-    CategoriesModule
   ],
   controllers: [InventoryController],
   providers: [InventoryService, PrismaService],

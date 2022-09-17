@@ -6,5 +6,8 @@ import { PrismaService } from './prisma.service';
 export class InventoryService {
   constructor(private prisma: PrismaService) {}
 
-  
+  create() {
+    
+    return true;
+  }
 }

@@ -6,7 +6,7 @@ import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [AuthModule],
-  controllers: [CategoriesController, AuthModule],
+  controllers: [CategoriesController],
   providers: [CategoriesService, PrismaService],
 })
 export class CategoriesModule {}
