@@ -24,8 +24,6 @@ export class OrdersController {
   @ApiOperation({ summary: 'Create Order' })
   @UseGuards(JwtAuthGuard)
   create(@Body() createOrder: Prisma.OrderCreateInput, @Req() req: any) {
-    console.log(req.user, process.env.RABBITMQ_AUTH_QUEUE);
-
     return this.ordersService.create(createOrder, req.user.tenantId);
   }
 

@@ -76,6 +76,23 @@ services:
       - "3001:3001"
     networks:
       - backend
+  inventory:
+    build:
+      context: ./inventory
+      dockerfile: Dockerfile
+    env_file:
+      - ./inventory/.env
+    container_name: inventory
+    volumes:
+      - ./inventory:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - rabbitmq
+      - kong
+    ports:
+      - "3002:3002"
+    networks:
+      - backend
   kong:
     build:
       context: ./kong

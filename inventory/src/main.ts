@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { OrdersModule } from './orders.module';
+import { OrdersModule } from './inventory.module';
 import { ConfigService } from '@nestjs/config';
 import { RmqService } from './rmq/rmq.service';
 import { RmqOptions } from '@nestjs/microservices';

@@ -2,12 +2,12 @@ _format_version: "2.1"
 _transform: true
 
 services:
-  - name: user
-    url: http://user:9001
+  - name: inventory
+    url: http://inventory:3002
     routes:
-      - name: user
+      - name: inventory
         paths:
-          - /user
+          - /inventory
   - name: auth
     url: http://auth:9002
     routes:
