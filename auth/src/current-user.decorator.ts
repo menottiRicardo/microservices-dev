@@ -3,6 +3,7 @@ import { User } from './users/schemas/user.schema';
 
 export const getCurrentUserByContext = (context: ExecutionContext): User => {
   if (context.getType() === 'http') {
+    
     return context.switchToHttp().getRequest().user;
   }
   if (context.getType() === 'rpc') {
@@ -11,6 +12,8 @@ export const getCurrentUserByContext = (context: ExecutionContext): User => {
 };
 
 export const CurrentUser = createParamDecorator(
-  (_data: unknown, context: ExecutionContext) =>
-    getCurrentUserByContext(context),
+  (_data: unknown, context: ExecutionContext) => {
+    
+    return getCurrentUserByContext(context);
+  },
 );
