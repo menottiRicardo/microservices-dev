@@ -13,10 +13,34 @@ services:
     routes:
       - name: auth
         paths:
-          - /auth
+          - /auth    
   - name: order
     url: http://order:3001
     routes:
       - name: order
         paths:
           - /order
+plugins:
+  - name: session
+    config: 
+      cookie_name: Authentication
+  - name: cors
+    config:
+      origins:
+        - http://localhost:3000
+      methods:
+        - GET
+        - POST
+      headers:
+        - Accept
+        - Accept-Version
+        - Content-Length
+        - Content-MD5
+        - Content-Type
+        - Date
+        - Set-Cookie
+      exposed_headers:
+        - X-Auth-Token
+        - Set-Cookie
+      credentials: true
+
