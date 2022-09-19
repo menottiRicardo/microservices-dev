@@ -29,14 +29,16 @@ export class CategoriesService {
   }
 
   menu(tenantId: string) {
-    return this.prisma.category.findMany({
+    const category = this.prisma.category.findMany({
       where: {
         tenantId: tenantId,
       },
       include: {
         products: true,
       },
-    });
+    })
+    
+    return category
   }
 
   findOne(id: string) {
