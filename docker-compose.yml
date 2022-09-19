@@ -1,22 +1,4 @@
 services:
-  user:
-    build:
-      context: ./user
-      dockerfile: Dockerfile
-    env_file:
-      - ./user/.env
-    volumes:
-      - ./user:/usr/src/app
-      - /usr/src/app/node_modules
-    hostname: user
-    container_name: user
-    ports:
-      - "9001:9001"
-    depends_on:
-      - rabbitmq
-      - kong
-    networks:
-      - backend
   auth:
     build:
       context: ./auth
@@ -30,21 +12,6 @@ services:
     container_name: auth
     ports:
       - "9002:9002"
-    depends_on:
-      - rabbitmq
-      - kong
-    networks:
-      - backend
-  token:
-    build:
-      context: ./token
-      dockerfile: Dockerfile
-    env_file:
-      - ./token/.env
-    container_name: token
-    volumes:
-      - ./token:/usr/src/app
-      - /usr/src/app/node_modules
     depends_on:
       - rabbitmq
       - kong

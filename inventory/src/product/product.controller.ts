@@ -31,6 +31,7 @@ export class ProductController {
   @Get('byTenant')
   @UseGuards(JwtAuthGuard)
   findAll(@Req() req: any) {
+    console.log('hre')
     return this.productService.findAll(req.user.tenantId);
   }
 

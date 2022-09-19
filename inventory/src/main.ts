@@ -19,7 +19,7 @@ function configureSwagger(app): void {
 async function bootstrap() {
   const app = await NestFactory.create(OrdersModule);
   const rmqService = app.get<RmqService>(RmqService);
-  app.connectMicroservice<RmqOptions>(rmqService.getOptions('AUTH', true));
+  // app.connectMicroservice<RmqOptions>(rmqService.getOptions('AUTH', true));
   const configService = app.get(ConfigService);
   configureSwagger(app);
   await app.startAllMicroservices();

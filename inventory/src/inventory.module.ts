@@ -15,9 +15,6 @@ import { CategoriesModule } from './categories/categories.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    RmqModule.register({
-      name: 'AUTH',
-    }),
     AuthModule,
   ],
   controllers: [InventoryController],

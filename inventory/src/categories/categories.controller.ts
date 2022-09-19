@@ -28,7 +28,9 @@ export class CategoriesController {
   @Get('byTenant')
   @UseGuards(JwtAuthGuard)
   findAll(@Req() req: any) {
-    return this.categoriesService.findAll(req.user.tenantId);
+    console.log('here',req.user)
+    if(req.user === undefined) return 
+    return this.categoriesService.findAll(req.user.tenantId)
   }
 
   @Get('health')
@@ -38,6 +40,7 @@ export class CategoriesController {
 
   @Get('menu/:id')
   findMenu(@Param('id') tenantId: string) {
+    console.log('tenant', tenantId)
     return this.categoriesService.menu(tenantId);
   }
 

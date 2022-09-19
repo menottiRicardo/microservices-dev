@@ -13,7 +13,7 @@ import { TablesService } from './tables.service';
 import { Prisma } from '@prisma/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
-@Controller('tables')
+@Controller('table')
 export class TablesController {
   constructor(private readonly tablesService: TablesService) {}
 
@@ -24,8 +24,10 @@ export class TablesController {
   }
 
   @Get('byTenant')
+  @UseGuards(JwtAuthGuard)
   findAll(@Req() req: any) {
-    return this.tablesService.findAll(req);
+    console.log('here')
+    return this.tablesService.findAll(req.user.tenantId);
   }
 
   @Get('health')
