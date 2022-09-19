@@ -8,12 +8,14 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { UsersModule } from './users/users.module';
 import { RmqModule } from './rmq/rmq.module';
 import { DatabaseModule } from './database/database.module';
+import { TenantModule } from './tenant/tenant.module';
 
 @Module({
   imports: [
     DatabaseModule,
     UsersModule,
     RmqModule,
+    TenantModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
