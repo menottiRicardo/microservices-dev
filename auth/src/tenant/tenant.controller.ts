@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { AsignTenantRequest } from './dto/asign-user.request';
 import { CreateTenantRequest } from './dto/create-tenant.request';
 import { TenantService } from './tenant.service';
@@ -15,5 +15,10 @@ export class UsersController {
   @Put('update')
   async updateTenant(@Body() request: AsignTenantRequest) {
     return this.tenantService.asignTenant(request);
+  }
+
+  @Get('all')
+  async allTenant() {
+    return this.tenantService.getTenants();
   }
 }

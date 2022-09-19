@@ -25,7 +25,9 @@ export class TenantService {
     return tenant;
   }
 
-  async getUser(getUserArgs: Partial<Tenant>) {
-    return this.tenantRepository.findOne(getUserArgs);
+  async getTenants() {
+    const tenants = await this.tenantRepository.find({});
+    
+    return tenants
   }
 }
