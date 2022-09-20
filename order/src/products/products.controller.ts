@@ -18,12 +18,12 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+  
   create(
     @Body() createProductDto: Prisma.ProductCreateInput,
-    @Req() req: any,
+    
   ) {
-    return this.productsService.create(createProductDto, req.user.tenantId);
+    return this.productsService.create(createProductDto);
   }
 
   @Post('/ordered/:id')

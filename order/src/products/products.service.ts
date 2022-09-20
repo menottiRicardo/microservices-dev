@@ -5,10 +5,11 @@ import { PrismaService } from '../prisma.service';
 @Injectable()
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
-  create(createProductInput: Prisma.ProductCreateInput, tenantId: string) {
+  create(createProductInput: Prisma.ProductCreateInput) {
     const newTable = this.prisma.product.create({
-      data: { ...createProductInput, status: 'CREATED', tenantId },
+      data: { ...createProductInput, status: 'CREATED' },
     });
+    console.log(newTable)
     return newTable;
   }
 

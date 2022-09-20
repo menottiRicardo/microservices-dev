@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -37,10 +38,10 @@ export class OrdersController {
     return this.ordersService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() updateTable: Prisma.OrderCreateInput,
+    @Body() updateTable: Prisma.OrderUpdateInput,
   ) {
     return this.ordersService.update(id, updateTable);
   }

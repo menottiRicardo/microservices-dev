@@ -20,6 +20,7 @@ export class JwtAuthGuard implements CanActivate {
     return this.authClient
       .send('validate_user', {
         Authentication: authentication,
+        
       })
       .pipe(
         tap((res) => {
