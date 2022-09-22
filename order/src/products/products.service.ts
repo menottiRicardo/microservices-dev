@@ -1,15 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import { OrdersService } from '../orders.service';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class ProductsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private orderService: OrdersService,
+  ) {}
   create(createProductInput: Prisma.ProductCreateInput) {
     const newTable = this.prisma.product.create({
       data: { ...createProductInput, status: 'CREATED' },
     });
-    console.log(newTable)
+    console.log(newTable);
     return newTable;
   }
 
@@ -49,8 +53,8 @@ export class ProductsService {
     });
   }
 
-  update(id: string, updateProductDto: Prisma.ProductUpdateInput) {
-    return this.prisma.product.update({
+  async update(id: string, updateProductDto: Prisma.ProductUpdateInput) {
+    const updateProduct = await this.prisma.product.update({
       where: {
         id,
       },
@@ -58,13 +62,18 @@ export class ProductsService {
         ...updateProductDto,
       },
     });
+
+    const order = this.orderService.findOne(updateProduct.orderId);
+    return order;
   }
 
-  remove(id: string) {
-    return this.prisma.product.delete({
+  async remove(id: string) {
+    const product = await this.prisma.product.delete({
       where: {
         id,
       },
     });
+    
+    return this.orderService.findOne(product.orderId);
   }
 }

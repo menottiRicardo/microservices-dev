@@ -29,6 +29,9 @@ export class OrdersService {
       where: {
         id,
       },
+      include: {
+        products: true,
+      },
     });
   }
 

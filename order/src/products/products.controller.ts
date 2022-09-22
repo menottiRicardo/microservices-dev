@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   Req,
+  Put,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Prisma } from '@prisma/client';
@@ -18,11 +19,7 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
-  
-  create(
-    @Body() createProductDto: Prisma.ProductCreateInput,
-    
-  ) {
+  create(@Body() createProductDto: Prisma.ProductCreateInput) {
     return this.productsService.create(createProductDto);
   }
 
@@ -46,11 +43,14 @@ export class ProductsController {
     return this.productsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateProductDto: Prisma.ProductUpdateInput,
   ) {
+    if (updateProductDto.qty === 0) {
+      return this.productsService.remove(id);
+    }
     return this.productsService.update(id, updateProductDto);
   }
 

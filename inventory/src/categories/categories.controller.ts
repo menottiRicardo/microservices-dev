@@ -40,7 +40,7 @@ export class CategoriesController {
 
   @Get('menu/:id')
   findMenu(@Param('id') tenantId: string) {
-    console.log('tenant', tenantId)
+    
     return this.categoriesService.menu(tenantId);
   }
 
